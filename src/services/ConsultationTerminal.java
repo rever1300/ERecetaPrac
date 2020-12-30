@@ -1,5 +1,6 @@
 package services;
 
+import Exceptions.*;
 import java.util.Date;
 
 public class ConsultationTerminal {
