@@ -11,13 +11,21 @@ final public class HealthCardID {
     }
     public void isValid(String code) throws IllegalArgumentException{
         if(code==null) throw new IllegalArgumentException();
-        for(int i = 0; i<code.length();i++){
-            //---COMPROVEM LES B's---//
-            if(i<8){
-                if(code.indexOf(i)!='B') throw new IllegalArgumentException();
-            }else if(i<10){
-
+        if(code.length()==28){
+            for(int i = 0; i < code.length(); i++){
+                //---COMPROVEM LES B's---//
+                if(i<8){
+                    if(code.indexOf(i)!='B') throw new IllegalArgumentException();
+                }//COMPROVEM SI NO ES UN NUMERO---//
+                else if(i<10){
+                    if(Character.isDigit(code.indexOf(i))) throw new IllegalArgumentException();
+                }
+                else{
+                    if(!Character.isDigit(code.indexOf(i))) throw new IllegalArgumentException();
+                }
             }
+        }else{
+            throw new IllegalArgumentException();
         }
     }
     public String getPersonalID() { return personalID; }
