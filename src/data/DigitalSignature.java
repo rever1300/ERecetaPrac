@@ -5,11 +5,8 @@ import java.util.Arrays;
 final public class DigitalSignature {
     private final Byte[] medicalSignature;
 
-    public DigitalSignature(int mida) { //---INTRODUIM MIDA AL BYTE[]---//
-        medicalSignature = new Byte[mida];
-    }
-    public DigitalSignature(){ //---PER DEFECTE -->20---//
-        medicalSignature = new Byte[20];
+    public DigitalSignature(Byte[] signature) { //---INTRODUIM MIDA AL BYTE[]---//
+        this.medicalSignature = signature;
     }
 
     public String getDigitalSignature() {

@@ -1,6 +1,11 @@
 package services;
 
+import Exceptions.*;
 import data.*;
+import medicalconsultation.MedicalPrescription;
+import medicalconsultation.ProductSpecification;
+
+import java.util.List;
 
 public interface HealthNationalService  {
     MedicalPrescription getePrescription(HealthCardID hcID)
@@ -10,7 +15,7 @@ public interface HealthNationalService  {
             throws AnyKeyWordMedicineException, ConnectException;
     ProductSpecification getProductSpecific(int opt)
             throws AnyMedicineSearchException, ConnectException;
-    MedicalPrescription6 sendePrescription(MedicalPrescription7 ePresc)
-            throws ConnectException, NotValidePrescription, eSignatureException,
+    MedicalPrescription sendePrescription(MedicalPrescription ePresc)
+            throws ConnectException, NotValidePrescriptionException, eSignatureException,
             NotCompletedMedicalPrescription;
 }
