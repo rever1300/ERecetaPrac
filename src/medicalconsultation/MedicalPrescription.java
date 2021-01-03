@@ -1,4 +1,5 @@
 package medicalconsultation;
+import Exceptions.*;
 import data.*;
 
 import java.util.Date;
@@ -15,7 +16,7 @@ public class MedicalPrescription {
 
     } // Makes some inicialization
     public void addLine(ProductID prodID, String[] instruc)
-            throws IncorrectTakingGuidelinesException{
+            throws IncorrectTakingGuidelinesException {
 
     }
     public void modifyLine(ProductID prodID, String[] instruc)
