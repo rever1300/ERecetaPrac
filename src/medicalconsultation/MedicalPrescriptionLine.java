@@ -5,13 +5,28 @@ import data.ProductID;
 import java.util.HashMap;
 
 public class MedicalPrescriptionLine {
-        private HashMap<ProductID,TakingGuideline> hashMap;
+    private ProductID pID;
+    private TakingGuideline takingGuideline;
 
-    public MedicalPrescriptionLine() {
-        this.hashMap = new HashMap<>();
+
+    public MedicalPrescriptionLine(ProductID pID, TakingGuideline takingGuideline) {
+        this.takingGuideline = takingGuideline;
+        this.pID=pID;
     }
 
-    public void setLine(ProductID pID, dayMoment dM, float du, String i, float d, float f, FqUnit u) {
-        hashMap.put(pID, new TakingGuideline(dM, du, i, d, f, u));
+    public ProductID getpID() {
+        return pID;
+    }
+
+    public void setpID(ProductID pID) {
+        this.pID = pID;
+    }
+
+    public TakingGuideline getTakingGuideline() {
+        return takingGuideline;
+    }
+
+    public void setTakingGuideline(TakingGuideline takingGuideline) {
+        this.takingGuideline = takingGuideline;
     }
 }
