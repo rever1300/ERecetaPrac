@@ -1,11 +1,13 @@
 package data;
 
+import Exceptions.dataE.ProductIDException;
+
 final public class ProductID {
     private final String productID;
 
-    public ProductID(String productCode) throws IllegalArgumentException {
+    public ProductID(String productCode) throws ProductIDException {
         if(productCode == null || !isValid(productCode)){
-            throw new IllegalArgumentException("El codi del producte es incorrecte");
+            throw new ProductIDException("El codi del producte es incorrecte");
         }
         this.productID = productCode;
     }

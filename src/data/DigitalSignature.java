@@ -1,11 +1,16 @@
 package data;
 
+import Exceptions.dataE.eSignatureException;
+
 import java.util.Arrays;
 
 final public class DigitalSignature {
     private final Byte[] medicalSignature;
 
-    public DigitalSignature(Byte[] signature) { //---INTRODUIM MIDA AL BYTE[]---//
+    public DigitalSignature(Byte[] signature)throws eSignatureException {
+        if(signature == null){
+            throw new eSignatureException("No has introduit la signatura digital");
+        }
         this.medicalSignature = signature;
     }
 
