@@ -65,10 +65,19 @@ public class MedicalPrescription {
     // Makes some inicialization
     public void addLine(ProductID prodID, String[] instruc)
             throws IncorrectTakingGuidelinesException {
-        if(instruc.length!=6) throw new IncorrectTakingGuidelinesException("Instruccions incorrectes");
+//      if(instruc.length!=6) throw new IncorrectTakingGuidelinesException("Instruccions incorrectes");
+        boolean trobat=false;
         dayMoment[] values_dayMoment = dayMoment.values();
         for(int i = 0; i<7; i++){
-            if(values_dayMoment.) throw new IncorrectTakingGuidelinesException();
+            if(i==0){
+               for(dayMoment d:values_dayMoment){
+                   if(d.toString().equals(instruc[i])) {
+                       trobat=true;
+                       break;
+                   }
+               }
+               if(!trobat)throw new IncorrectTakingGuidelinesException("Puto");
+            }
         }
 
 

@@ -3,22 +3,23 @@ package data;
 final public class ProductID {
     private final String productID;
 
-    public ProductID(String productCode) {
-        isValid(productCode);
+    public ProductID(String productCode) throws IllegalArgumentException {
+        if(productCode == null || !isValid(productCode)){
+            throw new IllegalArgumentException("El codi del producte es incorrecte");
+        }
         this.productID = productCode;
     }
 
-    public void isValid(String code) throws IllegalArgumentException {
-        if (code.length() != 12) {
-            for (int i = 0; i < code.length(); i++) {
-                if(!Character.isDigit(i)) throw new IllegalArgumentException();
-            }
+    public boolean isValid(String code) {
+        if (code.length() != 12) return false;
+        for (int i = 0; i < code.length(); i++) {
+                if(!Character.isDigit(code.charAt(i))) return false;
         }
+        return true;
     }
 
-    public String getProductID() {
-        return productID;
-    }
+    public String getProductID() { return productID; }
+
     @Override
     public boolean equals(Object o){
         if (this == o) return true;
@@ -34,7 +35,7 @@ final public class ProductID {
 
     @Override
     public String toString(){
-        return "Productid{" + "product code='" + productID + '\'' + '}';
+        return "ProductID{" + "Product Code='" + productID + '\'' + '}';
     }
 
 }

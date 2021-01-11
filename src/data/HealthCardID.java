@@ -5,28 +5,26 @@ package data;
 
 final public class HealthCardID {
     private final String personalID;
-    public HealthCardID(String code) {
-        isValid(code);
+
+    public HealthCardID(String code) throws IllegalArgumentException{
+        if(code == null || isValid(code))throw new IllegalArgumentException("El codi de la tarjeta es incorrecte");
         this.personalID = code;
     }
-    public void isValid(String code) throws IllegalArgumentException{
-        if(code==null) throw new IllegalArgumentException();
-        if(code.length()==28){
-            for(int i = 0; i < code.length(); i++){
-                //---COMPROVEM LES B's---//
-                if(i<8){
-                    if(code.indexOf(i)!='B') throw new IllegalArgumentException();
-                }//COMPROVEM SI NO ES UN NUMERO---//
-                else if(i<10){
-                    if(Character.isDigit(code.indexOf(i))) throw new IllegalArgumentException();
-                }
-                else{
-                    if(!Character.isDigit(code.indexOf(i))) throw new IllegalArgumentException();
-                }
+    public boolean isValid(String code) {
+        if(code.length()!=28) return false;
+        for(int i=0; i < 28; i++){
+            //---COMPROVEM LES B's---//
+            if(i<8) {
+                if(code.charAt(i)!='B') return false;
+            }//---COMPROVEM LES 2 LLETRES---//
+            else if(i<10){
+                if(!Character.isLetter(code.charAt(i))) return false;
+            }//---COMPROVEM ELS ULTIMS SON DIGITS---//
+            else{
+                if(!Character.isDigit(code.charAt(i))) return false;
             }
-        }else{
-            throw new IllegalArgumentException();
         }
+        return true;
     }
     public String getPersonalID() { return personalID; }
 
