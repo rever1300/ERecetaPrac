@@ -6,6 +6,7 @@ import data.ProductID;
 import data.*;
 
 import java.util.Date;
+import java.util.HashMap;
 
 public class MedicalPrescription {
     private int prescCode;
