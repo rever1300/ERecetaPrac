@@ -1,4 +1,7 @@
 package data;
+
+import Exceptions.dataE.HealthCardIDException;
+
 /**
  * The personal identifying code in the National Health Service.
  */
@@ -6,8 +9,10 @@ package data;
 final public class HealthCardID {
     private final String personalID;
 
-    public HealthCardID(String code) throws IllegalArgumentException{
-        if(code == null || isValid(code))throw new IllegalArgumentException("El codi de la tarjeta es incorrecte");
+    public HealthCardID(String code) throws HealthCardIDException {
+        if(code == null || !isValid(code)) {
+            throw new HealthCardIDException("El codi de la tarjeta es incorrecte");
+        }
         this.personalID = code;
     }
     public boolean isValid(String code) {

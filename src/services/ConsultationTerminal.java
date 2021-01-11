@@ -1,11 +1,14 @@
 package services;
 
 import Exceptions.*;
+import Exceptions.dataE.HealthCardIDException;
+import Exceptions.dataE.eSignatureException;
+
 import java.util.Date;
 
 public class ConsultationTerminal {
     public void initRevision()
-            throws HealthCardException,
+            throws HealthCardIDException,
             NotValidePrescriptionException, ConnectException{
 
     }
@@ -29,7 +32,7 @@ public class ConsultationTerminal {
 
     }
     public void sendePrescription()
-            throws ConnectException, NotValidePrescription,
+            throws ConnectException, NotValidePrescriptionException,
             eSignatureException, NotCompletedMedicalPrescription {
 
     }

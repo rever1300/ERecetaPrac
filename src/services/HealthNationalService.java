@@ -1,6 +1,8 @@
 package services;
 
 import Exceptions.*;
+import Exceptions.dataE.HealthCardIDException;
+import Exceptions.dataE.eSignatureException;
 import data.*;
 import medicalconsultation.MedicalPrescription;
 import medicalconsultation.ProductSpecification;
@@ -9,7 +11,7 @@ import java.util.List;
 
 public interface HealthNationalService  {
     MedicalPrescription getePrescription(HealthCardID hcID)
-            throws HealthCardException, NotValidePrescriptionException,
+            throws HealthCardIDException, NotValidePrescriptionException,
             ConnectException;
     List<ProductSpecification> getProductsByKW(String keyWord)
             throws AnyKeyWordMedicineException, ConnectException;

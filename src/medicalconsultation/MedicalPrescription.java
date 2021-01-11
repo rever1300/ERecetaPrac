@@ -1,10 +1,10 @@
 package medicalconsultation;
 import Exceptions.*;
+import data.DigitalSignature;
+import data.ProductID;
 import data.*;
 
-import java.math.BigDecimal;
 import java.util.Date;
-import java.util.HashMap;
 
 public class MedicalPrescription {
     private int prescCode;
