@@ -4,7 +4,6 @@ import Exceptions.*;
 import data.DigitalSignature;
 import data.ProductID;
 import data.*;
-
 import java.util.Date;
 import java.util.HashMap;
 
@@ -14,7 +13,7 @@ public class MedicalPrescription {
     private Date endDate;
     private HealthCardID hcID; // the healthcard ID of the patient
     private DigitalSignature eSign; // the eSignature of the doctor
-    private final HashMap<ProductID, TakingGuideline> prescription;
+    private final HashMap<ProductID, MedicalPrescriptionLine> prescription;
 
     // Its components, that is, the set of medical prescription lines
     public MedicalPrescription(int prescCode, Date prescDate, Date endDate,
@@ -74,13 +73,15 @@ public class MedicalPrescription {
             throws IncorrectTakingGuidelinesException {
         if (instruc.length != 6) throw new IncorrectTakingGuidelinesException("Intruccions No Valides");
         if (!checkInstruc(instruc)) throw new IncorrectTakingGuidelinesException("Instruccions No Valides");
-        prescription.put(prodID, new TakingGuideline(
+        prescription.put(prodID, new MedicalPrescriptionLine(prodID,
+                new TakingGuideline(
                 dayMoment.valueOf(instruc[0]),
                 Float.parseFloat(instruc[1]),
                 instruc[2],
                 Float.parseFloat(instruc[3]),
                 Float.parseFloat(instruc[4]),
                 FqUnit.valueOf(instruc[5]))
+                )
         );
     }
 
@@ -90,13 +91,15 @@ public class MedicalPrescription {
             throw new ProductNotInPrescription("Producte no es troba a la prescripció mèdica");
         if (instruc.length != 6) throw new IncorrectTakingGuidelinesException("Intruccions No Valides");
         if (!checkInstruc(instruc)) throw new IncorrectTakingGuidelinesException("Instruccions No Valides");
-        prescription.replace(prodID, new TakingGuideline(
+        prescription.replace(prodID,new MedicalPrescriptionLine(prodID,
+                new TakingGuideline(
                 dayMoment.valueOf(instruc[0]),
                 Float.parseFloat(instruc[1]),
                 instruc[2],
                 Float.parseFloat(instruc[3]),
                 Float.parseFloat(instruc[4]),
                 FqUnit.valueOf(instruc[5]))
+                )
         );
     }
 

@@ -7,6 +7,7 @@ import Exceptions.dataE.eSignatureException;
 import java.util.Date;
 
 public class ConsultationTerminal {
+
     public void initRevision()
             throws HealthCardIDException,
             NotValidePrescriptionException, ConnectException{
