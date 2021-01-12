@@ -110,6 +110,12 @@ public class MedicalPrescription {
         prescription.remove(prodID);
     }
 
+    public boolean prescriptionEnabled() throws NotFinishedTreatmentException{
+        Date currentDate = new Date();
+        if(currentDate.after(this.endDate)) return true;
+        throw new NotFinishedTreatmentException("No s'ha acabat el tractament en curs");
+    }
+
     private boolean checkInstruc(String[] instruccions) {
         //CHECK DAYMOMENT AND FREQUENCY
         dayMoment[] dayMoments = dayMoment.values();

@@ -1,16 +1,10 @@
 package services;
 
+import Exceptions.dataE.HealthCardIDException;
 import data.HealthCardID;
 
-public class ScheduledVisitAgenda {
-    private final HealthCardID healthCardID;
+public interface ScheduledVisitAgenda {
 
+    public HealthCardID getHealthCardID() throws HealthCardIDException;
 
-    public ScheduledVisitAgenda(HealthCardID healthCardID){
-        this.healthCardID=healthCardID;
-    }
-
-    public HealthCardID getHealthCardID() {
-        return healthCardID;
-    }
 }
