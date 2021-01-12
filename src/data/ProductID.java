@@ -2,7 +2,12 @@ package data;
 
 import Exceptions.dataE.ProductIDException;
 
+/**
+ * The Universal Product code of the product.
+ */
+
 final public class ProductID {
+
     private final String productID;
 
     public ProductID(String productCode) throws ProductIDException {

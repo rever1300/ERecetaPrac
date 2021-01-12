@@ -7,6 +7,7 @@ import Exceptions.dataE.HealthCardIDException;
  */
 
 final public class HealthCardID {
+
     private final String personalID;
 
     public HealthCardID(String code) throws HealthCardIDException {
@@ -44,6 +45,6 @@ final public class HealthCardID {
     public int hashCode() { return personalID.hashCode(); }
     @Override
     public String toString() {
-        return "HealthCardID{" + "personal code='" + personalID + '\'' + '}';
+        return "HealthCardID{" + "Personal Code='" + personalID + '\'' + '}';
     }
 }

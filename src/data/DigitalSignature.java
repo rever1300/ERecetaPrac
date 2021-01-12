@@ -1,43 +1,42 @@
 package data;
 
 import Exceptions.dataE.eSignatureException;
-
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
-final public class DigitalSignature {
-    private final Byte[] medicalSignature;
+/**
+ * The Digital Signature of the doctor.
+ */
 
-    public DigitalSignature(Byte[] signature)throws eSignatureException {
+final public class DigitalSignature {
+
+    private final byte[] digitalSignature;
+
+    public DigitalSignature(byte[] signature)throws eSignatureException {
         if(signature == null){
             throw new eSignatureException("No has introduit la signatura digital");
         }
-        this.medicalSignature = signature;
+        this.digitalSignature = signature;
     }
 
-    public String getDigitalSignature() {
-        return Arrays.toString(medicalSignature);
-    }
 
     @Override
     public boolean equals(Object o){
         if(this == o) return true;
         if(o == null || getClass()!= o.getClass()) return false;
         DigitalSignature ds = (DigitalSignature) o;
-        return Arrays.equals(medicalSignature, ds.medicalSignature);
+        return Arrays.equals(digitalSignature, ds.digitalSignature);
     }
 
     @Override
     public int hashCode(){
-        return Arrays.hashCode(medicalSignature);
+        return Arrays.hashCode(digitalSignature);
     }
 
     @Override
     public String toString(){
-        String MSign="{ ";
-        for (Byte aByte : medicalSignature) {
-            MSign = MSign.concat(aByte + ", ");
-        }
-        MSign += " }";
-        return MSign;
+        String dSignature= new String(digitalSignature, StandardCharsets.UTF_8);
+        return "DigitalSignature{" + "Signatura='" + dSignature + '\'' + '}';
     }
+
 }
