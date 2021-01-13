@@ -2,8 +2,6 @@ package medicalconsultation;
 
 import data.ProductID;
 
-import java.util.HashMap;
-
 public class MedicalPrescriptionLine {
     private ProductID pID;
     private TakingGuideline takingGuideline;
