@@ -48,6 +48,18 @@ public class TakingGuideline {
     public void setPosology(Posology posology) {
         this.posology = posology;
     }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        TakingGuideline takingGuideline = (TakingGuideline) obj;
+        return dMoment.equals(takingGuideline.dMoment) &&
+                duration == takingGuideline.duration &&
+                instructions.equals(takingGuideline.instructions) &&
+                posology.equals(takingGuideline.posology);
+    }
 }
 
 

@@ -38,5 +38,14 @@ public class Posology {
     public void setFreqUnit(FqUnit freqUnit) {
         this.freqUnit = freqUnit;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Posology pos = (Posology) obj;
+        return dose == pos.dose && freq == pos.freq && freqUnit.equals(pos.freqUnit);
+    }
 }
+
 
