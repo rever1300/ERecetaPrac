@@ -67,6 +67,8 @@ public class MedicalPrescription {
         this.eSign = eSign;
     }
 
+    public MedicalPrescriptionLine getMedicalPrescLine(ProductID productID){return prescription.get(productID);}
+
 
     // Makes some inicialization
     public void addLine(ProductID prodID, String[] instruc)
@@ -124,13 +126,15 @@ public class MedicalPrescription {
         for (dayMoment d : dayMoments) {
             if ((d.toString().equals(instruccions[0]))) diferent = true;
         }
+        if(!diferent) return false;
+        diferent = false;
         for (FqUnit fqUnit : fqUnits) {
             if ((fqUnit.toString().equals(instruccions[instruccions.length - 1]))) diferent = true;
         }
-        if (!diferent) return false;
+        if(!diferent) return false;
         //CHECK OTHER ELEMENTS
         if (Integer.parseInt(instruccions[1]) < 0.0 || Integer.parseInt(instruccions[3]) < 0.0 || Integer.parseInt(instruccions[4]) < 0.0)
-            return false;
+        return false;
         return true;
     }
 
