@@ -11,31 +11,44 @@ public class PosologyTest {
 
     private Posology pos;
 
+
     @BeforeEach
     public void initialize(){
-        pos = new Posology(2.5f,7f, FqUnit.DAY);
+        float dose = 2.5f;
+        float freq = 7f;
+        FqUnit fqUnit = FqUnit.DAY;
+        pos = new Posology(dose, freq, fqUnit);
     }
 
     @Test
-    public void getters(){
+    public void getterDose(){
         assertEquals(2.5f,pos.getDose());
+    }
+    @Test
+    public void getterFreq(){
         assertEquals(7f,pos.getFreq());
+    }
+    @Test
+    public void getterFreqUnit(){
         assertEquals(FqUnit.DAY,pos.getFreqUnit());
-
     }
 
     @Test
-    public void settersBeforeGetters(){
-        assertEquals(2.5f,pos.getDose());
-        pos.setDose(1.4f);
-        pos.setFreq(14f);
-        assertEquals(1.4f,pos.getDose());
-        assertEquals(14f,pos.getFreq());
-        assertEquals(FqUnit.DAY,pos.getFreqUnit());
-        pos.setFreq(1f);
-        pos.setFreqUnit(FqUnit.MONTH);
-        assertEquals(1f,pos.getFreq());
-        assertEquals(FqUnit.MONTH,pos.getFreqUnit());
+    public void setterDose() {
+        pos.setDose(5f);
+        assertEquals(5f, pos.getDose());
     }
 
+
+    @Test
+    public void setterFreq(){
+        pos.setFreq(2f);
+        assertEquals(2f, pos.getFreq());
+    }
+
+    @Test
+    public void setterFreqUnit(){
+        pos.setFreqUnit(FqUnit.WEEK);
+        assertEquals(FqUnit.WEEK, pos.getFreqUnit());
+    }
 }
