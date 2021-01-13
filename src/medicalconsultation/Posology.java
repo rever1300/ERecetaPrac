@@ -5,6 +5,7 @@ public class Posology {
     private float dose;
     private float freq;
     private FqUnit freqUnit;
+    private float prova;
 
 
     // Initializes attributes
