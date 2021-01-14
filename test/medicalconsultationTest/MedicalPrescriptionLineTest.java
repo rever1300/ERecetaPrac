@@ -21,7 +21,8 @@ public class MedicalPrescriptionLineTest {
         float freq = 7f;
         FqUnit freqUnit = FqUnit.HOUR;
         TakingGuideline tGLine = new TakingGuideline(DayMoment, duration, instructions, dose, freq, freqUnit);
-        medicalPrescriptionLine = new MedicalPrescriptionLine(pID, tGLine);
+        medicalPrescriptionLine = new MedicalPrescriptionLine(pID);
+        medicalPrescriptionLine.setTakingGuideline(tGLine);
     }
     @Test
     public void getterPID() throws ProductIDException {

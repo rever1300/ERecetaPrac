@@ -25,14 +25,15 @@ class MedicalPrescriptionTest {
 
 
     @BeforeEach
-    public void initialize() throws HealthCardIDException, eSignatureException {
+    public void initialize() throws HealthCardIDException {
         int presCode = 69;
         Date datePresc = new Date(2021, Calendar.JANUARY, 13);
         Date endDate = new Date(2022, Calendar.APRIL, 21);
         String codeHID = "BBBBBBBBOP412345678912345656";
         HealthCardID healthCardID = new HealthCardID(codeHID);
-        DigitalSignature digitalSignature = new DigitalSignature("Doctor25".getBytes());
-        MP = new MedicalPrescription(presCode, datePresc, endDate, healthCardID, digitalSignature);
+        MP = new MedicalPrescription(datePresc, healthCardID);
+        MP.setPrescCode(presCode);
+        MP.setEndDate(endDate);
     }
 
 
@@ -59,12 +60,6 @@ class MedicalPrescriptionTest {
         String codeHID = "BBBBBBBBOP412345678912345656";
         HealthCardID expHealthCardID = new HealthCardID(codeHID);
         assertEquals(expHealthCardID, MP.getHcID());
-    }
-
-    @Test
-    public void getterDigitalSignature() throws eSignatureException {
-        DigitalSignature expDigitalSignature = new DigitalSignature("Doctor25".getBytes());
-        assertEquals(expDigitalSignature, MP.geteSign());
     }
 
     @Test
@@ -112,7 +107,8 @@ class MedicalPrescriptionTest {
         MP.addLine(productID, instruccions);
         TakingGuideline newTakingGuideline = new TakingGuideline(dayMoment.DURINGMEALS,
                 10f, "Maxim 5 pastilles per dia", 2f,4f, FqUnit.HOUR);
-        MedicalPrescriptionLine medicalPrescriptionLine = new MedicalPrescriptionLine(productID, newTakingGuideline);
+        MedicalPrescriptionLine medicalPrescriptionLine = new MedicalPrescriptionLine(productID);
+        medicalPrescriptionLine.setTakingGuideline(newTakingGuideline);
         assertEquals(medicalPrescriptionLine,MP.getMedicalPrescLine(productID));
     }
 
@@ -134,7 +130,8 @@ class MedicalPrescriptionTest {
         MP.modifyLine(productID, newInstruccions);
         TakingGuideline newTakingGuideline = new TakingGuideline(dayMoment.AFTERDINNER,
                 12f, "Maxim 3 pastilles per dia", 1f,4f, FqUnit.DAY);
-        MedicalPrescriptionLine medicalPrescriptionLine = new MedicalPrescriptionLine(productID, newTakingGuideline);
+        MedicalPrescriptionLine medicalPrescriptionLine = new MedicalPrescriptionLine(productID);
+        medicalPrescriptionLine.setTakingGuideline(newTakingGuideline);
         assertEquals(medicalPrescriptionLine, MP.getMedicalPrescLine(productID));
     }
 

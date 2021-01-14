@@ -2,6 +2,7 @@ package services;
 
 import Exceptions.*;
 import Exceptions.dataE.HealthCardIDException;
+import Exceptions.dataE.ProductIDException;
 import Exceptions.dataE.eSignatureException;
 import data.DigitalSignature;
 import data.HealthCardID;
@@ -34,7 +35,7 @@ public class ConsultationTerminal {
         this.digitalSignature=digitalSignature;
     }
 
-    public void initRevision() throws HealthCardIDException, NotValidePrescriptionException, ConnectException {
+    public void initRevision() throws HealthCardIDException, NotValidePrescriptionException, ConnectException, IncorrectTakingGuidelinesException, ProductIDException {
         healthCardID = sva.getHealthCardID();
         medicalPrescription = hns.getePrescription(healthCardID);
     }
@@ -44,7 +45,7 @@ public class ConsultationTerminal {
         medicalPrescription.prescriptionEnabled();
     }
 
-    public void searchForProducts(String keyWord) throws AnyKeyWordMedicineException, ConnectException {
+    public void searchForProducts(String keyWord) throws AnyKeyWordMedicineException, ConnectException, ProductIDException {
         medicament = hns.getProductsByKW(keyWord);
     }
 

@@ -16,13 +16,10 @@ public class MedicalPrescription {
     private final HashMap<ProductID, MedicalPrescriptionLine> prescription;
 
     // Its components, that is, the set of medical prescription lines
-    public MedicalPrescription(int prescCode, Date prescDate, Date endDate,
-                               HealthCardID hcID, DigitalSignature eSign) {
-        this.prescCode = prescCode;
+    public MedicalPrescription(Date prescDate,
+                               HealthCardID hcID) {
         this.prescDate = prescDate;
-        this.endDate = endDate;
         this.hcID = hcID;
-        this.eSign = eSign;
         this.prescription = new HashMap<>();
     }
 
@@ -75,16 +72,18 @@ public class MedicalPrescription {
             throws IncorrectTakingGuidelinesException {
         if (instruc.length != 6) throw new IncorrectTakingGuidelinesException("Intruccions No Valides");
         if (!checkInstruc(instruc)) throw new IncorrectTakingGuidelinesException("Instruccions No Valides");
-        prescription.put(prodID, new MedicalPrescriptionLine(prodID,
-                new TakingGuideline(
+        MedicalPrescriptionLine MPL = new MedicalPrescriptionLine(prodID);
+        MPL.setTakingGuideline(new TakingGuideline(
                 dayMoment.valueOf(instruc[0]),
                 Float.parseFloat(instruc[1]),
                 instruc[2],
                 Float.parseFloat(instruc[3]),
                 Float.parseFloat(instruc[4]),
                 FqUnit.valueOf(instruc[5]))
-                )
         );
+        prescription.put(prodID, MPL);
+
+
     }
 
     public void modifyLine(ProductID prodID, String[] instruc)
@@ -93,16 +92,16 @@ public class MedicalPrescription {
             throw new ProductNotInPrescription("Producte no es troba a la prescripció mèdica");
         if (instruc.length != 6) throw new IncorrectTakingGuidelinesException("Intruccions No Valides");
         if (!checkInstruc(instruc)) throw new IncorrectTakingGuidelinesException("Instruccions No Valides");
-        prescription.replace(prodID,new MedicalPrescriptionLine(prodID,
-                new TakingGuideline(
+        MedicalPrescriptionLine MPL = new MedicalPrescriptionLine(prodID);
+        MPL.setTakingGuideline(new TakingGuideline(
                 dayMoment.valueOf(instruc[0]),
                 Float.parseFloat(instruc[1]),
                 instruc[2],
                 Float.parseFloat(instruc[3]),
                 Float.parseFloat(instruc[4]),
                 FqUnit.valueOf(instruc[5]))
-                )
         );
+        prescription.replace(prodID, MPL);
     }
 
     public void removeLine(ProductID prodID)
