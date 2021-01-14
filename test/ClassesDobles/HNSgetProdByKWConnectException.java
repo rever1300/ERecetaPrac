@@ -8,9 +8,6 @@ import data.HealthCardID;
 import medicalconsultation.MedicalPrescription;
 import medicalconsultation.ProductSpecification;
 import services.HealthNationalService;
-
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class HNSgetProdByKWConnectException implements HealthNationalService {
@@ -19,8 +16,7 @@ public class HNSgetProdByKWConnectException implements HealthNationalService {
 
     @Override
     public MedicalPrescription getePrescription(HealthCardID hcID) throws HealthCardIDException, NotValidePrescriptionException, ConnectException, ProductIDException, IncorrectTakingGuidelinesException {
-        Date prescDate = new Date(2020, Calendar.JANUARY,3);
-        MP = new MedicalPrescription(prescDate, hcID);
+        MP = new MedicalPrescription(hcID);
         return MP;
     }
 
@@ -38,7 +34,6 @@ public class HNSgetProdByKWConnectException implements HealthNationalService {
     public MedicalPrescription sendePrescription(MedicalPrescription ePresc) throws ConnectException, NotValidePrescriptionException, eSignatureException, NotCompletedMedicalPrescription {
         MP = ePresc;
         MP.setPrescCode(38);
-        MP.setEndDate(new Date(2032,Calendar.MAY,5));
         return MP;
     }
 }

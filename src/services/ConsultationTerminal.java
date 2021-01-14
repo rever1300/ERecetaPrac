@@ -6,9 +6,11 @@ import Exceptions.dataE.ProductIDException;
 import Exceptions.dataE.eSignatureException;
 import data.DigitalSignature;
 import data.HealthCardID;
+import data.ProductID;
 import medicalconsultation.MedicalPrescription;
 import medicalconsultation.ProductSpecification;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -31,8 +33,20 @@ public class ConsultationTerminal {
         this.hns = hns;
     }
 
-    public void setDigitalSignature(DigitalSignature digitalSignature){
-        this.digitalSignature=digitalSignature;
+    public HealthCardID getHCID(){
+        return this.healthCardID;
+    }
+
+    public MedicalPrescription getMedicalPrescription(){
+        return this.medicalPrescription;
+    }
+
+    public List<ProductSpecification> getMedicament(){
+        return this.medicament;
+    }
+
+    public ProductSpecification getProductSpecification(){
+        return this.productSpecification;
     }
 
     public void initRevision() throws HealthCardIDException, NotValidePrescriptionException, ConnectException, IncorrectTakingGuidelinesException, ProductIDException {
@@ -59,9 +73,9 @@ public class ConsultationTerminal {
     }
 
     public void enterTreatmentEndingDate(Date date) throws IncorrectEndingDateException {
-        Date actual = new Date();
+        Date actual = new Date(2020, Calendar.JANUARY,3);
         if(date==null || date.before(actual)) throw new IncorrectEndingDateException("Data incorrecta");
-        medicalPrescription.setPrescDate(new Date());
+        medicalPrescription.setPrescDate(actual);
         medicalPrescription.setEndDate(date);
     }
 

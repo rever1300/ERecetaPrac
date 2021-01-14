@@ -10,9 +10,6 @@ import data.ProductID;
 import medicalconsultation.MedicalPrescription;
 import medicalconsultation.ProductSpecification;
 import services.HealthNationalService;
-
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class HNSAnyKWMedicineException implements HealthNationalService {
@@ -21,8 +18,7 @@ public class HNSAnyKWMedicineException implements HealthNationalService {
 
     @Override
     public MedicalPrescription getePrescription(HealthCardID hcID) throws HealthCardIDException, NotValidePrescriptionException, ConnectException, ProductIDException, IncorrectTakingGuidelinesException {
-        Date prescDate = new Date(2020, Calendar.JANUARY,3);
-        MP = new MedicalPrescription(prescDate, hcID);
+        MP = new MedicalPrescription(hcID);
         ProductID PID = new ProductID("222222222222");
         String[] instruccions = {"DURINGMEALS", "10", "Maxim 5 pastilles per dia", "2", "4", "HOUR"};
         MP.addLine(PID,instruccions);
@@ -43,7 +39,6 @@ public class HNSAnyKWMedicineException implements HealthNationalService {
     public MedicalPrescription sendePrescription(MedicalPrescription ePresc) throws ConnectException, NotValidePrescriptionException, eSignatureException, NotCompletedMedicalPrescription {
         MP = ePresc;
         MP.setPrescCode(38);
-        MP.setEndDate(new Date(2032,Calendar.MAY,5));
         return MP;
     }
 }

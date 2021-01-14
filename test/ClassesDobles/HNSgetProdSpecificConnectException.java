@@ -12,8 +12,6 @@ import services.HealthNationalService;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class HNSgetProdSpecificConnectException implements HealthNationalService {
@@ -23,19 +21,18 @@ public class HNSgetProdSpecificConnectException implements HealthNationalService
 
     @Override
     public MedicalPrescription getePrescription(HealthCardID hcID) throws HealthCardIDException, NotValidePrescriptionException, ConnectException, ProductIDException, IncorrectTakingGuidelinesException {
-        Date prescDate = new Date(2020, Calendar.JANUARY,3);
-        MP = new MedicalPrescription(prescDate, hcID);
+        MP = new MedicalPrescription(hcID);
         return MP;
     }
 
     @Override
     public List<ProductSpecification> getProductsByKW(String keyWord) throws AnyKeyWordMedicineException, ConnectException, ProductIDException {
         ProductID pid = new ProductID("987654321012");
-        String desc = "Ibuprofeno";
+        String desc = "Pastilles pel mal de cap";
         BigDecimal price = new BigDecimal(5);
         ProductSpecification pS = new ProductSpecification(pid, desc, price);
-        ProductID pid2 = new ProductID("12345678945");
-        String desc2 = "Paracetamol";
+        ProductID pid2 = new ProductID("987654312345");
+        String desc2 = "Pastilles pel mal de panxa";
         BigDecimal price2 = new BigDecimal(4);
         ProductSpecification pS2 = new ProductSpecification(pid2, desc2, price2);
         productSpecificationsList.add(pS);
@@ -52,7 +49,6 @@ public class HNSgetProdSpecificConnectException implements HealthNationalService
     public MedicalPrescription sendePrescription(MedicalPrescription ePresc) throws ConnectException, NotValidePrescriptionException, eSignatureException, NotCompletedMedicalPrescription {
         MP = ePresc;
         MP.setPrescCode(38);
-        MP.setEndDate(new Date(2032,Calendar.MAY,5));
         return MP;
     }
 }

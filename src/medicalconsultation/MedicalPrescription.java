@@ -16,9 +16,7 @@ public class MedicalPrescription {
     private final HashMap<ProductID, MedicalPrescriptionLine> prescription;
 
     // Its components, that is, the set of medical prescription lines
-    public MedicalPrescription(Date prescDate,
-                               HealthCardID hcID) {
-        this.prescDate = prescDate;
+    public MedicalPrescription(HealthCardID hcID) {
         this.hcID = hcID;
         this.prescription = new HashMap<>();
     }
@@ -135,6 +133,15 @@ public class MedicalPrescription {
         if (Integer.parseInt(instruccions[1]) < 0.0 || Integer.parseInt(instruccions[3]) < 0.0 || Integer.parseInt(instruccions[4]) < 0.0)
         return false;
         return true;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        MedicalPrescription MP = (MedicalPrescription) obj;
+        return hcID.equals(MP.hcID) &&
+                prescription.equals(MP.prescription);
     }
 
 }

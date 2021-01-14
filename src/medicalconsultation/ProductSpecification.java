@@ -38,4 +38,12 @@ public class ProductSpecification {
     public void setPrice(BigDecimal price) {
         this.price = price;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        ProductSpecification PS = (ProductSpecification) obj;
+        return UPCcode.equals(PS.UPCcode) && description.equals(PS.description) && price.equals(PS.price);
+    }
 }

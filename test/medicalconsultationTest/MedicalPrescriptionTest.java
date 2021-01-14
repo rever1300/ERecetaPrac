@@ -31,9 +31,10 @@ class MedicalPrescriptionTest {
         Date endDate = new Date(2022, Calendar.APRIL, 21);
         String codeHID = "BBBBBBBBOP412345678912345656";
         HealthCardID healthCardID = new HealthCardID(codeHID);
-        MP = new MedicalPrescription(datePresc, healthCardID);
+        MP = new MedicalPrescription(healthCardID);
         MP.setPrescCode(presCode);
         MP.setEndDate(endDate);
+        MP.setPrescDate(datePresc);
     }
 
 
