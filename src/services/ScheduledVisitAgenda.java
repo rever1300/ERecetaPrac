@@ -5,6 +5,6 @@ import data.HealthCardID;
 
 public interface ScheduledVisitAgenda {
 
-    public HealthCardID getHealthCardID() throws HealthCardIDException;
+    HealthCardID getHealthCardID() throws HealthCardIDException;
 
 }
