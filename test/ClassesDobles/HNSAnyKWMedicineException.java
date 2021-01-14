@@ -4,22 +4,20 @@ import Exceptions.*;
 import Exceptions.dataE.HealthCardIDException;
 import Exceptions.dataE.ProductIDException;
 import Exceptions.dataE.eSignatureException;
+import com.sun.jdi.ThreadReference;
 import data.HealthCardID;
 import data.ProductID;
-import medicalconsultation.*;
+import medicalconsultation.MedicalPrescription;
+import medicalconsultation.ProductSpecification;
 import services.HealthNationalService;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class HNSGood implements HealthNationalService {
+public class HNSAnyKWMedicineException implements HealthNationalService {
 
-    private List<ProductSpecification> productSpecificationsList = new ArrayList<>();
     private MedicalPrescription MP;
-
 
     @Override
     public MedicalPrescription getePrescription(HealthCardID hcID) throws HealthCardIDException, NotValidePrescriptionException, ConnectException, ProductIDException, IncorrectTakingGuidelinesException {
@@ -33,22 +31,12 @@ public class HNSGood implements HealthNationalService {
 
     @Override
     public List<ProductSpecification> getProductsByKW(String keyWord) throws AnyKeyWordMedicineException, ConnectException, ProductIDException {
-        ProductID pid = new ProductID("987654321012");
-        String desc = "Ibuprofeno";
-        BigDecimal price = new BigDecimal(5);
-        ProductSpecification pS = new ProductSpecification(pid, desc, price);
-        ProductID pid2 = new ProductID("12345678945");
-        String desc2 = "Paracetamol";
-        BigDecimal price2 = new BigDecimal(4);
-        ProductSpecification pS2 = new ProductSpecification(pid2, desc2, price2);
-        productSpecificationsList.add(pS);
-        productSpecificationsList.add(pS2);
-        return productSpecificationsList;
+        throw new AnyKeyWordMedicineException("No es troba cap producte amb la K-Word introduida");
     }
 
     @Override
     public ProductSpecification getProductSpecific(int opt) throws AnyMedicineSearchException, ConnectException {
-        return productSpecificationsList.get(opt);
+        throw new AnyMedicineSearchException("No hi ha cap cerca");
     }
 
     @Override
