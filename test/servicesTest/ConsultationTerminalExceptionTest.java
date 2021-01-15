@@ -32,6 +32,7 @@ public class ConsultationTerminalExceptionTest {
     }
 
     //----------- SVA Test -----------//
+
     @Test
     public void initRevisionSVAExceptionTest(){
         HealthNationalService hns = new HNSGood();

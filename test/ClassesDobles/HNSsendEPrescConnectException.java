@@ -16,12 +16,15 @@ import java.util.List;
 
 public class HNSsendEPrescConnectException implements HealthNationalService {
 
-    private final List<ProductSpecification> productSpecificationsList = new ArrayList<>();
+    private final List<ProductSpecification> prodSpfList = new ArrayList<>();
     private MedicalPrescription MP;
 
     @Override
-    public MedicalPrescription getePrescription(HealthCardID hcID) throws HealthCardException, NotValidePrescriptionException, ConnectException{
+    public MedicalPrescription getePrescription(HealthCardID hcID) throws HealthCardException, NotValidePrescriptionException, ConnectException, IncorrectTakingGuidelinesException, ProductIDException {
         MP = new MedicalPrescription(hcID);
+        ProductID PID = new ProductID("147852369018");
+        String[] instruc = {"DURINGMEALS", "10", "Maxim 5 pastilles per dia", "2", "4", "HOUR"};
+        MP.addLine(PID,instruc);
         return MP;
     }
 
@@ -35,14 +38,14 @@ public class HNSsendEPrescConnectException implements HealthNationalService {
         String desc2 = "Pastilles pel mal de panxa";
         BigDecimal price2 = new BigDecimal(4);
         ProductSpecification pS2 = new ProductSpecification(pid2, desc2, price2);
-        productSpecificationsList.add(pS);
-        productSpecificationsList.add(pS2);
-        return productSpecificationsList;
+        prodSpfList.add(pS);
+        prodSpfList.add(pS2);
+        return prodSpfList;
     }
 
     @Override
     public ProductSpecification getProductSpecific(int opt) throws AnyMedicineSearchException, ConnectException {
-        return productSpecificationsList.get(opt);
+        return prodSpfList.get(opt);
     }
 
     @Override

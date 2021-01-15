@@ -4,6 +4,7 @@ import Exceptions.*;
 import Exceptions.dataE.HealthCardException;
 import Exceptions.dataE.ProductIDException;
 import Exceptions.dataE.eSignatureException;
+import data.DigitalSignature;
 import data.HealthCardID;
 import data.ProductID;
 import medicalconsultation.MedicalPrescription;
@@ -19,8 +20,8 @@ public class HNSgetProdByKWConnectException implements HealthNationalService {
     public MedicalPrescription getePrescription(HealthCardID hcID) throws HealthCardException, NotValidePrescriptionException, ConnectException, ProductIDException, IncorrectTakingGuidelinesException {
         MP = new MedicalPrescription(hcID);
         ProductID PID = new ProductID("147852369018");
-        String[] instruccions = {"DURINGMEALS", "10", "Maxim 5 pastilles per dia", "2", "4", "HOUR"};
-        MP.addLine(PID,instruccions);
+        String[] instruc = {"DURINGMEALS", "10", "Maxim 5 pastilles per dia", "2", "4", "HOUR"};
+        MP.addLine(PID,instruc);
         return MP;
     }
 
@@ -38,6 +39,7 @@ public class HNSgetProdByKWConnectException implements HealthNationalService {
     public MedicalPrescription sendePrescription(MedicalPrescription ePresc) throws ConnectException, NotValidePrescriptionException, eSignatureException, NotCompletedMedicalPrescription {
         MP = ePresc;
         MP.setPrescCode(38);
+        MP.seteSign(new DigitalSignature("Maria".getBytes()));
         return MP;
     }
 }

@@ -19,13 +19,11 @@ public class MedicalPrescription {
     private DigitalSignature eSign; // the eSignature of the doctor
     private final HashMap<ProductID, MedicalPrescriptionLine> prescription;
 
-    // Its components, that is, the set of medical prescription lines
     public MedicalPrescription(HealthCardID hcID) {
         this.hcID = hcID;
         this.prescription = new HashMap<>();
     }
 
-    // the getters and setters
     public int getPrescCode() {
         return prescCode;
     }
@@ -68,7 +66,7 @@ public class MedicalPrescription {
 
     public MedicalPrescriptionLine getMedicalPrescLine(ProductID productID){return prescription.get(productID);}
 
-    // Makes some inicialization
+
     public void addLine(ProductID prodID, String[] instruc) throws IncorrectTakingGuidelinesException {
         MedicalPrescriptionLine MPL = check_setUp_MPL(prodID,instruc);
         prescription.put(prodID, MPL);
