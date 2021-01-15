@@ -2,10 +2,17 @@ package medicalconsultation;
 
 import data.ProductID;
 
+/**
+ * The line of a Medical Prescription linked with the productID.
+ */
+
 public class MedicalPrescriptionLine {
     private ProductID pID;
     private TakingGuideline takingGuideline;
 
+    public MedicalPrescriptionLine (ProductID productID){
+        this.pID = productID;
+    }
 
     public ProductID getpID() {
         return pID;

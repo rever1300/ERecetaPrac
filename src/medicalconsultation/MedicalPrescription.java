@@ -7,6 +7,10 @@ import data.*;
 import java.util.Date;
 import java.util.HashMap;
 
+/**
+ * The Medical Prescription of the patients linked with the Medical Prescription Line and the doctor.
+ */
+
 public class MedicalPrescription {
     private int prescCode;
     private Date prescDate;
@@ -64,48 +68,20 @@ public class MedicalPrescription {
 
     public MedicalPrescriptionLine getMedicalPrescLine(ProductID productID){return prescription.get(productID);}
 
-
     // Makes some inicialization
-    public void addLine(ProductID prodID, String[] instruc)
-            throws IncorrectTakingGuidelinesException {
-        if (instruc.length != 6) throw new IncorrectTakingGuidelinesException("Intruccions No Valides");
-        if (!checkInstruc(instruc)) throw new IncorrectTakingGuidelinesException("Instruccions No Valides");
-        MedicalPrescriptionLine MPL = new MedicalPrescriptionLine();
-        MPL.setpID(prodID);
-        MPL.setTakingGuideline(new TakingGuideline(
-                dayMoment.valueOf(instruc[0]),
-                Float.parseFloat(instruc[1]),
-                instruc[2],
-                Float.parseFloat(instruc[3]),
-                Float.parseFloat(instruc[4]),
-                FqUnit.valueOf(instruc[5]))
-        );
+    public void addLine(ProductID prodID, String[] instruc) throws IncorrectTakingGuidelinesException {
+        MedicalPrescriptionLine MPL = check_setUp_MPL(prodID,instruc);
         prescription.put(prodID, MPL);
-
-
     }
 
-    public void modifyLine(ProductID prodID, String[] instruc)
-            throws ProductNotInPrescription, IncorrectTakingGuidelinesException {
+    public void modifyLine(ProductID prodID, String[] instruc) throws ProductNotInPrescription, IncorrectTakingGuidelinesException {
         if (!prescription.containsKey(prodID))
             throw new ProductNotInPrescription("Producte no es troba a la prescripció mèdica");
-        if (instruc.length != 6) throw new IncorrectTakingGuidelinesException("Intruccions No Valides");
-        if (!checkInstruc(instruc)) throw new IncorrectTakingGuidelinesException("Instruccions No Valides");
-        MedicalPrescriptionLine MPL = new MedicalPrescriptionLine();
-        MPL.setpID(prodID);
-        MPL.setTakingGuideline(new TakingGuideline(
-                dayMoment.valueOf(instruc[0]),
-                Float.parseFloat(instruc[1]),
-                instruc[2],
-                Float.parseFloat(instruc[3]),
-                Float.parseFloat(instruc[4]),
-                FqUnit.valueOf(instruc[5]))
-        );
+        MedicalPrescriptionLine MPL = check_setUp_MPL(prodID,instruc);
         prescription.replace(prodID, MPL);
     }
 
-    public void removeLine(ProductID prodID)
-            throws ProductNotInPrescription {
+    public void removeLine(ProductID prodID) throws ProductNotInPrescription {
         if (!prescription.containsKey(prodID))
             throw new ProductNotInPrescription("Producte no es troba a la prescripció mèdica");
         prescription.remove(prodID);
@@ -118,7 +94,6 @@ public class MedicalPrescription {
     }
 
     private boolean checkInstruc(String[] instruccions) {
-        //CHECK DAYMOMENT AND FREQUENCY
         dayMoment[] dayMoments = dayMoment.values();
         FqUnit[] fqUnits = FqUnit.values();
         boolean diferent = false;
@@ -131,10 +106,24 @@ public class MedicalPrescription {
             if ((fqUnit.toString().equals(instruccions[instruccions.length - 1]))) diferent = true;
         }
         if(!diferent) return false;
-        //CHECK OTHER ELEMENTS
         if (Integer.parseInt(instruccions[1]) < 0.0 || Integer.parseInt(instruccions[3]) < 0.0 || Integer.parseInt(instruccions[4]) < 0.0)
         return false;
         return true;
+    }
+
+    private MedicalPrescriptionLine check_setUp_MPL(ProductID prod, String[] instruc) throws IncorrectTakingGuidelinesException{
+        if (instruc.length != 6) throw new IncorrectTakingGuidelinesException("Intruccions No Valides");
+        if (!checkInstruc(instruc)) throw new IncorrectTakingGuidelinesException("Instruccions No Valides");
+        MedicalPrescriptionLine MPL = new MedicalPrescriptionLine(prod);
+        MPL.setTakingGuideline(new TakingGuideline(
+                dayMoment.valueOf(instruc[0]),
+                Float.parseFloat(instruc[1]),
+                instruc[2],
+                Float.parseFloat(instruc[3]),
+                Float.parseFloat(instruc[4]),
+                FqUnit.valueOf(instruc[5]))
+        );
+        return MPL;
     }
 
     @Override

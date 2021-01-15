@@ -19,14 +19,11 @@ final public class HealthCardID {
     public boolean isValid(String code) {
         if(code.length()!=28) return false;
         for(int i=0; i < 28; i++){
-            //---COMPROVEM LES B's---//
             if(i<8) {
                 if(code.charAt(i)!='B') return false;
-            }//---COMPROVEM LES 2 LLETRES---//
-            else if(i<10){
+            }else if(i<10) {
                 if(!Character.isLetter(code.charAt(i))) return false;
-            }//---COMPROVEM ELS ULTIMS SON DIGITS---//
-            else{
+            }else {
                 if(!Character.isDigit(code.charAt(i))) return false;
             }
         }
