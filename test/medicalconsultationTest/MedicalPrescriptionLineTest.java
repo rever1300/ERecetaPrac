@@ -21,7 +21,8 @@ public class MedicalPrescriptionLineTest {
         float freq = 7f;
         FqUnit freqUnit = FqUnit.HOUR;
         TakingGuideline tGLine = new TakingGuideline(DayMoment, duration, instructions, dose, freq, freqUnit);
-        medicalPrescriptionLine = new MedicalPrescriptionLine(pID);
+        medicalPrescriptionLine = new MedicalPrescriptionLine();
+        medicalPrescriptionLine.setpID(pID);
         medicalPrescriptionLine.setTakingGuideline(tGLine);
     }
     @Test

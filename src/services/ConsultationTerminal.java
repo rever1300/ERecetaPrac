@@ -1,12 +1,12 @@
 package services;
 
 import Exceptions.*;
-import Exceptions.dataE.HealthCardIDException;
+import Exceptions.dataE.HealthCardException;
+import Exceptions.dataE.HealthCardFormatException;
 import Exceptions.dataE.ProductIDException;
 import Exceptions.dataE.eSignatureException;
 import data.DigitalSignature;
 import data.HealthCardID;
-import data.ProductID;
 import medicalconsultation.MedicalPrescription;
 import medicalconsultation.ProductSpecification;
 
@@ -21,11 +21,10 @@ public class ConsultationTerminal {
     private MedicalPrescription medicalPrescription;
     private List<ProductSpecification> medicament;
     private ProductSpecification productSpecification;
-    private DigitalSignature digitalSignature;
 
 
 
-    public void setScheduledVisitAgenda(ScheduledVisitAgenda scheduledVisitAgenda) {
+    public void setSVA(ScheduledVisitAgenda scheduledVisitAgenda) {
         this.sva = scheduledVisitAgenda;
     }
 
@@ -49,7 +48,7 @@ public class ConsultationTerminal {
         return this.productSpecification;
     }
 
-    public void initRevision() throws HealthCardIDException, NotValidePrescriptionException, ConnectException, IncorrectTakingGuidelinesException, ProductIDException {
+    public void initRevision() throws HealthCardException, NotValidePrescriptionException, ConnectException, IncorrectTakingGuidelinesException, ProductIDException, HealthCardFormatException {
         healthCardID = sva.getHealthCardID();
         medicalPrescription = hns.getePrescription(healthCardID);
     }
@@ -80,7 +79,6 @@ public class ConsultationTerminal {
     }
 
     public void sendePrescription() throws ConnectException, NotValidePrescriptionException, eSignatureException, NotCompletedMedicalPrescription {
-        medicalPrescription.seteSign(this.digitalSignature);
         medicalPrescription = hns.sendePrescription(medicalPrescription);
     }
 

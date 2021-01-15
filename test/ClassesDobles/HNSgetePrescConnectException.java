@@ -1,7 +1,7 @@
 package ClassesDobles;
 
 import Exceptions.*;
-import Exceptions.dataE.HealthCardIDException;
+import Exceptions.dataE.HealthCardException;
 import Exceptions.dataE.ProductIDException;
 import Exceptions.dataE.eSignatureException;
 import data.HealthCardID;
@@ -13,7 +13,7 @@ import java.util.List;
 
 public class HNSgetePrescConnectException implements HealthNationalService {
     @Override
-    public MedicalPrescription getePrescription(HealthCardID hcID) throws HealthCardIDException, NotValidePrescriptionException, ConnectException, ProductIDException, IncorrectTakingGuidelinesException {
+    public MedicalPrescription getePrescription(HealthCardID hcID) throws HealthCardException, NotValidePrescriptionException, ConnectException, ProductIDException, IncorrectTakingGuidelinesException {
         throw new ConnectException("Error al conectar amb el HNS");
     }
 

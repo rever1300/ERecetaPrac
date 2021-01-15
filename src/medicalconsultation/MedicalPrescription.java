@@ -70,7 +70,8 @@ public class MedicalPrescription {
             throws IncorrectTakingGuidelinesException {
         if (instruc.length != 6) throw new IncorrectTakingGuidelinesException("Intruccions No Valides");
         if (!checkInstruc(instruc)) throw new IncorrectTakingGuidelinesException("Instruccions No Valides");
-        MedicalPrescriptionLine MPL = new MedicalPrescriptionLine(prodID);
+        MedicalPrescriptionLine MPL = new MedicalPrescriptionLine();
+        MPL.setpID(prodID);
         MPL.setTakingGuideline(new TakingGuideline(
                 dayMoment.valueOf(instruc[0]),
                 Float.parseFloat(instruc[1]),
@@ -90,7 +91,8 @@ public class MedicalPrescription {
             throw new ProductNotInPrescription("Producte no es troba a la prescripció mèdica");
         if (instruc.length != 6) throw new IncorrectTakingGuidelinesException("Intruccions No Valides");
         if (!checkInstruc(instruc)) throw new IncorrectTakingGuidelinesException("Instruccions No Valides");
-        MedicalPrescriptionLine MPL = new MedicalPrescriptionLine(prodID);
+        MedicalPrescriptionLine MPL = new MedicalPrescriptionLine();
+        MPL.setpID(prodID);
         MPL.setTakingGuideline(new TakingGuideline(
                 dayMoment.valueOf(instruc[0]),
                 Float.parseFloat(instruc[1]),

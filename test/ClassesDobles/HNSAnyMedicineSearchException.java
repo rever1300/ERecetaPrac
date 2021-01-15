@@ -1,7 +1,7 @@
 package ClassesDobles;
 
 import Exceptions.*;
-import Exceptions.dataE.HealthCardIDException;
+import Exceptions.dataE.HealthCardException;
 import Exceptions.dataE.ProductIDException;
 import Exceptions.dataE.eSignatureException;
 import data.HealthCardID;
@@ -17,7 +17,7 @@ public class HNSAnyMedicineSearchException implements HealthNationalService {
     private MedicalPrescription MP;
 
     @Override
-    public MedicalPrescription getePrescription(HealthCardID hcID) throws HealthCardIDException, NotValidePrescriptionException, ConnectException, ProductIDException, IncorrectTakingGuidelinesException {
+    public MedicalPrescription getePrescription(HealthCardID hcID) throws HealthCardException, NotValidePrescriptionException, ConnectException, ProductIDException, IncorrectTakingGuidelinesException {
         MP = new MedicalPrescription(hcID);
         ProductID PID = new ProductID("222222222222");
         String[] instruccions = {"DURINGMEALS", "10", "Maxim 5 pastilles per dia", "2", "4", "HOUR"};

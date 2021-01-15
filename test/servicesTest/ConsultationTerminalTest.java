@@ -3,7 +3,8 @@ package servicesTest;
 import ClassesDobles.HNSGood;
 import ClassesDobles.SVAGood;
 import Exceptions.*;
-import Exceptions.dataE.HealthCardIDException;
+import Exceptions.dataE.HealthCardException;
+import Exceptions.dataE.HealthCardFormatException;
 import Exceptions.dataE.ProductIDException;
 import Exceptions.dataE.eSignatureException;
 import data.DigitalSignature;
@@ -38,12 +39,12 @@ public class ConsultationTerminalTest {
 
 
     @BeforeEach
-    public void init() throws HealthCardIDException, eSignatureException, ProductIDException, IncorrectTakingGuidelinesException {
+    public void init() throws HealthCardFormatException, eSignatureException, ProductIDException, IncorrectTakingGuidelinesException {
         hns = new HNSGood();
         sva = new SVAGood();
         ct = new ConsultationTerminal();
         ct.setHNS(hns);
-        ct.setScheduledVisitAgenda(sva);
+        ct.setSVA(sva);
         expectedhcid = new HealthCardID("BBBBBBBBRT142536987898745610");
         setUpExpectedMedicalPrescription();
         setUpList();
@@ -54,7 +55,8 @@ public class ConsultationTerminalTest {
         Date prescDate = new Date(2020, Calendar.JANUARY,3);
         Date endDate = new Date(2032,Calendar.MAY,5);
         DigitalSignature ds = new DigitalSignature("Jaimito".getBytes());
-        MedicalPrescriptionLine MPL = new MedicalPrescriptionLine(new ProductID("147852369018"));
+        MedicalPrescriptionLine MPL = new MedicalPrescriptionLine();
+        MPL.setpID(new ProductID("147852369018"));
         String[] ins = {"DURINGMEALS", "10", "Maxim 5 pastilles per dia", "2", "4", "HOUR"};
         expectedMP = new MedicalPrescription(expectedhcid);
         expectedMP.setPrescCode(prescCode);
@@ -80,21 +82,21 @@ public class ConsultationTerminalTest {
     }
 
     @Test
-    public void initRevision () throws NotValidePrescriptionException, IncorrectTakingGuidelinesException, ConnectException, HealthCardIDException, ProductIDException {
+    public void initRevision () throws NotValidePrescriptionException, IncorrectTakingGuidelinesException, ConnectException, HealthCardException, ProductIDException, HealthCardFormatException {
         ct.initRevision();
         assertEquals(expectedhcid,ct.getHCID());
         assertEquals(expectedMP,ct.getMedicalPrescription());
     }
 
     @Test
-    public void searchForProducts() throws NotValidePrescriptionException, IncorrectTakingGuidelinesException, ConnectException, HealthCardIDException, ProductIDException, AnyKeyWordMedicineException {
+    public void searchForProducts() throws NotValidePrescriptionException, IncorrectTakingGuidelinesException, ConnectException, HealthCardException, ProductIDException, AnyKeyWordMedicineException, HealthCardFormatException {
         ct.initRevision();
         ct.searchForProducts("9876543");
         assertEquals(listKW, ct.getMedicament());
     }
 
     @Test
-    public void selectProduct() throws NotValidePrescriptionException, IncorrectTakingGuidelinesException, ConnectException, HealthCardIDException, ProductIDException, AnyKeyWordMedicineException, AnyMedicineSearchException {
+    public void selectProduct() throws NotValidePrescriptionException, IncorrectTakingGuidelinesException, ConnectException, HealthCardException, ProductIDException, AnyKeyWordMedicineException, AnyMedicineSearchException, HealthCardFormatException {
         ct.initRevision();
         ct.searchForProducts("9876543");
         ct.selectProduct(1);
@@ -102,7 +104,7 @@ public class ConsultationTerminalTest {
     }
 
     @Test
-    public void enterMedicineGuidelines() throws ProductIDException, NotValidePrescriptionException, IncorrectTakingGuidelinesException, ConnectException, HealthCardIDException, AnyKeyWordMedicineException, AnyMedicineSearchException, AnySelectedMedicineException {
+    public void enterMedicineGuidelines() throws ProductIDException, NotValidePrescriptionException, IncorrectTakingGuidelinesException, ConnectException, HealthCardException, AnyKeyWordMedicineException, AnyMedicineSearchException, AnySelectedMedicineException, HealthCardFormatException {
         ProductID pid = new ProductID("987654312345");
         String[] instruc = {"DURINGDINNER", "6", "Maxim 5 pastilles per dia", "8", "7", "MONTH"};
         expectedMP.addLine(pid,instruc);
@@ -114,7 +116,7 @@ public class ConsultationTerminalTest {
     }
 
     @Test
-    public void enterTreatmentEndingDate() throws NotValidePrescriptionException, IncorrectTakingGuidelinesException, ConnectException, HealthCardIDException, ProductIDException, IncorrectEndingDateException {
+    public void enterTreatmentEndingDate() throws NotValidePrescriptionException, IncorrectTakingGuidelinesException, ConnectException, HealthCardException, ProductIDException, IncorrectEndingDateException, HealthCardFormatException {
         ct.initRevision();
         ct.enterTreatmentEndingDate(new Date(2032,Calendar.MAY,5));
         assertEquals(expectedMP.getEndDate(), ct.getMedicalPrescription().getEndDate());
@@ -122,7 +124,7 @@ public class ConsultationTerminalTest {
     }
 
     @Test
-    public void sendePrescription() throws NotValidePrescriptionException, IncorrectTakingGuidelinesException, ConnectException, HealthCardIDException, ProductIDException, IncorrectEndingDateException, eSignatureException, NotCompletedMedicalPrescription {
+    public void sendePrescription() throws NotValidePrescriptionException, IncorrectTakingGuidelinesException, ConnectException, HealthCardException, ProductIDException, IncorrectEndingDateException, eSignatureException, NotCompletedMedicalPrescription, HealthCardFormatException {
         ct.initRevision();
         ct.enterTreatmentEndingDate(new Date(2032,Calendar.MAY,5));
         ct.sendePrescription();
@@ -131,7 +133,7 @@ public class ConsultationTerminalTest {
     }
 
     @Test
-    public void initPrescriptionEdition() throws NotValidePrescriptionException, IncorrectTakingGuidelinesException, ConnectException, HealthCardIDException, ProductIDException, eSignatureException, NotCompletedMedicalPrescription, IncorrectEndingDateException {
+    public void initPrescriptionEdition() throws NotValidePrescriptionException, IncorrectTakingGuidelinesException, ConnectException, HealthCardException, ProductIDException, eSignatureException, NotCompletedMedicalPrescription, IncorrectEndingDateException, HealthCardFormatException {
         ct.initRevision();
         ct.enterTreatmentEndingDate(new Date(2032,Calendar.MAY,5));
         ct.sendePrescription();

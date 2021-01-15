@@ -2,7 +2,7 @@ package medicalconsultationTest;
 
 import Exceptions.IncorrectTakingGuidelinesException;
 import Exceptions.ProductNotInPrescription;
-import Exceptions.dataE.HealthCardIDException;
+import Exceptions.dataE.HealthCardFormatException;
 import Exceptions.dataE.ProductIDException;
 import Exceptions.dataE.eSignatureException;
 import data.DigitalSignature;
@@ -12,7 +12,6 @@ import medicalconsultation.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Array;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -25,7 +24,7 @@ class MedicalPrescriptionTest {
 
 
     @BeforeEach
-    public void initialize() throws HealthCardIDException {
+    public void initialize() throws HealthCardFormatException {
         int presCode = 69;
         Date datePresc = new Date(2021, Calendar.JANUARY, 13);
         Date endDate = new Date(2022, Calendar.APRIL, 21);
@@ -57,7 +56,7 @@ class MedicalPrescriptionTest {
     }
 
     @Test
-    public void getterHealthCardID() throws HealthCardIDException {
+    public void getterHealthCardID() throws HealthCardFormatException {
         String codeHID = "BBBBBBBBOP412345678912345656";
         HealthCardID expHealthCardID = new HealthCardID(codeHID);
         assertEquals(expHealthCardID, MP.getHcID());
@@ -85,7 +84,7 @@ class MedicalPrescriptionTest {
     }
 
     @Test
-    public void setterHealthCard() throws HealthCardIDException {
+    public void setterHealthCard() throws HealthCardFormatException {
         String newCodeHID = "BBBBBBBBKJ415263214789654745";
         HealthCardID putHealthCard = new HealthCardID(newCodeHID);
         MP.setHcID(putHealthCard);
@@ -108,7 +107,8 @@ class MedicalPrescriptionTest {
         MP.addLine(productID, instruccions);
         TakingGuideline newTakingGuideline = new TakingGuideline(dayMoment.DURINGMEALS,
                 10f, "Maxim 5 pastilles per dia", 2f,4f, FqUnit.HOUR);
-        MedicalPrescriptionLine medicalPrescriptionLine = new MedicalPrescriptionLine(productID);
+        MedicalPrescriptionLine medicalPrescriptionLine = new MedicalPrescriptionLine();
+        medicalPrescriptionLine.setpID(productID);
         medicalPrescriptionLine.setTakingGuideline(newTakingGuideline);
         assertEquals(medicalPrescriptionLine,MP.getMedicalPrescLine(productID));
     }
@@ -131,7 +131,8 @@ class MedicalPrescriptionTest {
         MP.modifyLine(productID, newInstruccions);
         TakingGuideline newTakingGuideline = new TakingGuideline(dayMoment.AFTERDINNER,
                 12f, "Maxim 3 pastilles per dia", 1f,4f, FqUnit.DAY);
-        MedicalPrescriptionLine medicalPrescriptionLine = new MedicalPrescriptionLine(productID);
+        MedicalPrescriptionLine medicalPrescriptionLine = new MedicalPrescriptionLine();
+        medicalPrescriptionLine.setpID(productID);
         medicalPrescriptionLine.setTakingGuideline(newTakingGuideline);
         assertEquals(medicalPrescriptionLine, MP.getMedicalPrescLine(productID));
     }

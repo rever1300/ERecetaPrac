@@ -7,10 +7,6 @@ public class MedicalPrescriptionLine {
     private TakingGuideline takingGuideline;
 
 
-    public MedicalPrescriptionLine(ProductID pID) {
-        this.pID=pID;
-    }
-
     public ProductID getpID() {
         return pID;
     }

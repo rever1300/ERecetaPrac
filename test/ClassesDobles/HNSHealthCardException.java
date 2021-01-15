@@ -5,50 +5,30 @@ import Exceptions.dataE.HealthCardException;
 import Exceptions.dataE.ProductIDException;
 import Exceptions.dataE.eSignatureException;
 import data.HealthCardID;
-import data.ProductID;
 import medicalconsultation.MedicalPrescription;
 import medicalconsultation.ProductSpecification;
 import services.HealthNationalService;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
-public class HNSgetProdSpecificConnectException implements HealthNationalService {
-
-    private final List<ProductSpecification> productSpecificationsList = new ArrayList<>();
-    private MedicalPrescription MP;
-
+public class HNSHealthCardException implements HealthNationalService {
     @Override
     public MedicalPrescription getePrescription(HealthCardID hcID) throws HealthCardException, NotValidePrescriptionException, ConnectException, ProductIDException, IncorrectTakingGuidelinesException {
-        MP = new MedicalPrescription(hcID);
-        return MP;
+        throw new HealthCardException("No es troba el pacient al HNS");
     }
 
     @Override
     public List<ProductSpecification> getProductsByKW(String keyWord) throws AnyKeyWordMedicineException, ConnectException, ProductIDException {
-        ProductID pid = new ProductID("987654321012");
-        String desc = "Pastilles pel mal de cap";
-        BigDecimal price = new BigDecimal(5);
-        ProductSpecification pS = new ProductSpecification(pid, desc, price);
-        ProductID pid2 = new ProductID("987654312345");
-        String desc2 = "Pastilles pel mal de panxa";
-        BigDecimal price2 = new BigDecimal(4);
-        ProductSpecification pS2 = new ProductSpecification(pid2, desc2, price2);
-        productSpecificationsList.add(pS);
-        productSpecificationsList.add(pS2);
-        return productSpecificationsList;
+        return null;
     }
 
     @Override
     public ProductSpecification getProductSpecific(int opt) throws AnyMedicineSearchException, ConnectException {
-        throw new ConnectException("Error al conectar amb el HNS");
+        return null;
     }
 
     @Override
     public MedicalPrescription sendePrescription(MedicalPrescription ePresc) throws ConnectException, NotValidePrescriptionException, eSignatureException, NotCompletedMedicalPrescription {
-        MP = ePresc;
-        MP.setPrescCode(38);
-        return MP;
+        return null;
     }
 }

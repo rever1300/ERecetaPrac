@@ -1,7 +1,7 @@
 package ClassesDobles;
 
 import Exceptions.*;
-import Exceptions.dataE.HealthCardIDException;
+import Exceptions.dataE.HealthCardException;
 import Exceptions.dataE.ProductIDException;
 import Exceptions.dataE.eSignatureException;
 import data.DigitalSignature;
@@ -16,12 +16,11 @@ import java.util.List;
 
 public class HNSGood implements HealthNationalService {
 
-    private List<ProductSpecification> productSpecificationsList = new ArrayList<>();
+    private final List<ProductSpecification> productSpecificationsList = new ArrayList<>();
     private MedicalPrescription MP;
 
-
     @Override
-    public MedicalPrescription getePrescription(HealthCardID hcID) throws HealthCardIDException, NotValidePrescriptionException, ConnectException, ProductIDException, IncorrectTakingGuidelinesException {
+    public MedicalPrescription getePrescription(HealthCardID hcID) throws HealthCardException, NotValidePrescriptionException, ConnectException, ProductIDException, IncorrectTakingGuidelinesException {
         MP = new MedicalPrescription(hcID);
         ProductID PID = new ProductID("147852369018");
         String[] instruccions = {"DURINGMEALS", "10", "Maxim 5 pastilles per dia", "2", "4", "HOUR"};
