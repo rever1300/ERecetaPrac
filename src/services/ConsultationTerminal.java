@@ -5,7 +5,6 @@ import Exceptions.dataE.HealthCardException;
 import Exceptions.dataE.HealthCardFormatException;
 import Exceptions.dataE.ProductIDException;
 import Exceptions.dataE.eSignatureException;
-import data.DigitalSignature;
 import data.HealthCardID;
 import medicalconsultation.MedicalPrescription;
 import medicalconsultation.ProductSpecification;
@@ -14,13 +13,17 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * The terminal where the doctor will set the MedicalPrescriptions and the connection with the HNS.
+ */
+
 public class ConsultationTerminal {
     private HealthNationalService hns;
     private ScheduledVisitAgenda sva;
     private HealthCardID healthCardID;
-    private MedicalPrescription medicalPrescription;
+    private MedicalPrescription medPrescription;
     private List<ProductSpecification> medicament;
-    private ProductSpecification productSpecification;
+    private ProductSpecification prodSpecification;
 
 
 
@@ -36,26 +39,26 @@ public class ConsultationTerminal {
         return this.healthCardID;
     }
 
-    public MedicalPrescription getMedicalPrescription(){
-        return this.medicalPrescription;
+    public MedicalPrescription getMedPrescription(){
+        return this.medPrescription;
     }
 
     public List<ProductSpecification> getMedicament(){
         return this.medicament;
     }
 
-    public ProductSpecification getProductSpecification(){
-        return this.productSpecification;
+    public ProductSpecification getProdSpecification(){
+        return this.prodSpecification;
     }
 
     public void initRevision() throws HealthCardException, NotValidePrescriptionException, ConnectException, IncorrectTakingGuidelinesException, ProductIDException, HealthCardFormatException {
         healthCardID = sva.getHealthCardID();
-        medicalPrescription = hns.getePrescription(healthCardID);
+        medPrescription = hns.getePrescription(healthCardID);
     }
 
     public void initPrescriptionEdition() throws AnyCurrentPrescriptionException, NotFinishedTreatmentException {
-        if (medicalPrescription == null) throw new AnyCurrentPrescriptionException("No hi ha una prescripció en curs");
-        medicalPrescription.prescriptionEnabled();
+        if (medPrescription == null) throw new AnyCurrentPrescriptionException("No hi ha una prescripció en curs");
+        medPrescription.prescriptionEnabled();
     }
 
     public void searchForProducts(String keyWord) throws AnyKeyWordMedicineException, ConnectException, ProductIDException {
@@ -63,29 +66,26 @@ public class ConsultationTerminal {
     }
 
     public void selectProduct(int option) throws AnyMedicineSearchException, ConnectException {
-        productSpecification = hns.getProductSpecific(option);
+        prodSpecification = hns.getProductSpecific(option);
     }
 
     public void enterMedicineGuidelines(String[] instruc) throws AnySelectedMedicineException, IncorrectTakingGuidelinesException {
-        if(productSpecification==null) throw new AnySelectedMedicineException("No s'ha seleccionat ningun medicament");
-        medicalPrescription.addLine(productSpecification.getUPCcode(), instruc);
+        if(prodSpecification ==null) throw new AnySelectedMedicineException("No s'ha seleccionat ningun medicament");
+        medPrescription.addLine(prodSpecification.getUPCcode(), instruc);
     }
 
     public void enterTreatmentEndingDate(Date date) throws IncorrectEndingDateException {
         Date actual = new Date(2020, Calendar.JANUARY,3);
         if(date==null || date.before(actual)) throw new IncorrectEndingDateException("Data incorrecta");
-        medicalPrescription.setPrescDate(actual);
-        medicalPrescription.setEndDate(date);
+        medPrescription.setPrescDate(actual);
+        medPrescription.setEndDate(date);
     }
 
     public void sendePrescription() throws ConnectException, NotValidePrescriptionException, eSignatureException, NotCompletedMedicalPrescription {
-        medicalPrescription = hns.sendePrescription(medicalPrescription);
+        medPrescription = hns.sendePrescription(medPrescription);
     }
 
     public void printePresc() throws printingException {
     }
-
-
-    // Other methods, apart from the input events
 
 }

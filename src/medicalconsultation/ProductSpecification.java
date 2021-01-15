@@ -4,6 +4,10 @@ import data.ProductID;
 
 import java.math.BigDecimal;
 
+/**
+ * The description of the product.
+ */
+
 public class ProductSpecification {
     private ProductID UPCcode;
     private String description;

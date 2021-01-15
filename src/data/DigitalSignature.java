@@ -12,13 +12,12 @@ final public class DigitalSignature {
 
     private final byte[] digitalSignature;
 
-    public DigitalSignature(byte[] signature)throws eSignatureException {
+    public DigitalSignature(byte[] signature) throws eSignatureException {
         if(signature == null){
             throw new eSignatureException("No has introduit la signatura digital");
         }
         this.digitalSignature = signature;
     }
-
 
     @Override
     public boolean equals(Object o){
@@ -38,5 +37,4 @@ final public class DigitalSignature {
         String dSignature= new String(digitalSignature, StandardCharsets.UTF_8);
         return "DigitalSignature{" + "Signatura='" + dSignature + '\'' + '}';
     }
-
 }

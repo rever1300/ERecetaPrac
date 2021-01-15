@@ -1,13 +1,15 @@
 package medicalconsultation;
 
+/**
+ * The guide to know how to take the medicine linked this in MedicalPrescriptionLine.
+ */
+
 public class TakingGuideline {
     private dayMoment dMoment;
     private float duration;
     private String instructions;
     private Posology posology;
 
-
-    // Initializes attributes
     public TakingGuideline(dayMoment dM, float du, String i, float d, float f, FqUnit u){
         this.dMoment = dM;
         this.duration = du;
@@ -15,7 +17,6 @@ public class TakingGuideline {
         this.posology = new Posology(d,f,u);
 
     }
-    // the getters and setters
 
     public dayMoment getdMoment() {
         return dMoment;
@@ -48,7 +49,6 @@ public class TakingGuideline {
     public void setPosology(Posology posology) {
         this.posology = posology;
     }
-
 
     @Override
     public boolean equals(Object obj) {

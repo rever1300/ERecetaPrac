@@ -10,6 +10,10 @@ import medicalconsultation.ProductSpecification;
 
 import java.util.List;
 
+/**
+ * The interface of the HealthNationalService.
+ */
+
 public interface HealthNationalService  {
     MedicalPrescription getePrescription(HealthCardID hcID)
             throws HealthCardException, NotValidePrescriptionException,

@@ -1,21 +1,20 @@
 package medicalconsultation;
 
+/**
+ * The medicine instructions.
+ */
 
 public class Posology {
     private float dose;
     private float freq;
     private FqUnit freqUnit;
-    private float prova;
 
-
-    // Initializes attributes
     public Posology (float d, float f, FqUnit u) {
         this.dose=d;
         this.freq=f;
         this.freqUnit=u;
     }
 
-   // the getters and setters
     public float getDose() {
         return dose;
     }
