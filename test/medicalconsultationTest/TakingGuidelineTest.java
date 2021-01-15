@@ -30,6 +30,7 @@ public class TakingGuidelineTest {
     public void getterDuration(){
         assertEquals(24f,takingGL.getDuration());
     }
+
     @Test
     public void getterInstructions(){
         assertEquals("Maxim 5 pastilles per dia", takingGL.getInstructions());
@@ -41,18 +42,18 @@ public class TakingGuidelineTest {
         assertEquals(expectedPosology,takingGL.getPosology());
     }
 
-
     @Test
     public void setterDayMoment(){
         takingGL.setdMoment(dayMoment.DURINGDINNER);
         assertEquals(dayMoment.DURINGDINNER, takingGL.getdMoment());
-
     }
+
     @Test
     public void setterDuration(){
         takingGL.setDuration(48f);
         assertEquals(48f, takingGL.getDuration());
     }
+
     @Test
     public void setterInstructions(){
         takingGL.setInstructions("Ara 3 maxim");

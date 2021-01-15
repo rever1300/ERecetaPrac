@@ -54,9 +54,8 @@ public class ConsultationTerminalTest {
         int prescCode = 38;
         Date prescDate = new Date(2020, Calendar.JANUARY,3);
         Date endDate = new Date(2032,Calendar.MAY,5);
-        DigitalSignature ds = new DigitalSignature("Jaimito".getBytes());
-        MedicalPrescriptionLine MPL = new MedicalPrescriptionLine();
-        MPL.setpID(new ProductID("147852369018"));
+        DigitalSignature ds = new DigitalSignature("Maria".getBytes());
+        MedicalPrescriptionLine MPL = new MedicalPrescriptionLine(new ProductID("147852369018"));
         String[] ins = {"DURINGMEALS", "10", "Maxim 5 pastilles per dia", "2", "4", "HOUR"};
         expectedMP = new MedicalPrescription(expectedhcid);
         expectedMP.setPrescCode(prescCode);
@@ -78,14 +77,13 @@ public class ConsultationTerminalTest {
         ProductSpecification pS2 = new ProductSpecification(pid2, desc2, price2);
         listKW.add(pS);
         listKW.add(pS2);
-
     }
 
     @Test
     public void initRevision () throws NotValidePrescriptionException, IncorrectTakingGuidelinesException, ConnectException, HealthCardException, ProductIDException, HealthCardFormatException {
         ct.initRevision();
         assertEquals(expectedhcid,ct.getHCID());
-        assertEquals(expectedMP,ct.getMedicalPrescription());
+        assertEquals(expectedMP,ct.getMedPrescription());
     }
 
     @Test
@@ -100,7 +98,7 @@ public class ConsultationTerminalTest {
         ct.initRevision();
         ct.searchForProducts("9876543");
         ct.selectProduct(1);
-        assertEquals(listKW.get(1), ct.getProductSpecification());
+        assertEquals(listKW.get(1), ct.getProdSpecification());
     }
 
     @Test
@@ -112,15 +110,15 @@ public class ConsultationTerminalTest {
         ct.searchForProducts("9876543");
         ct.selectProduct(1);
         ct.enterMedicineGuidelines(instruc);
-        assertEquals(expectedMP, ct.getMedicalPrescription());
+        assertEquals(expectedMP, ct.getMedPrescription());
     }
 
     @Test
     public void enterTreatmentEndingDate() throws NotValidePrescriptionException, IncorrectTakingGuidelinesException, ConnectException, HealthCardException, ProductIDException, IncorrectEndingDateException, HealthCardFormatException {
         ct.initRevision();
         ct.enterTreatmentEndingDate(new Date(2032,Calendar.MAY,5));
-        assertEquals(expectedMP.getEndDate(), ct.getMedicalPrescription().getEndDate());
-        assertEquals(expectedMP.getPrescDate(), ct.getMedicalPrescription().getPrescDate());
+        assertEquals(expectedMP.getEndDate(), ct.getMedPrescription().getEndDate());
+        assertEquals(expectedMP.getPrescDate(), ct.getMedPrescription().getPrescDate());
     }
 
     @Test
@@ -128,8 +126,8 @@ public class ConsultationTerminalTest {
         ct.initRevision();
         ct.enterTreatmentEndingDate(new Date(2032,Calendar.MAY,5));
         ct.sendePrescription();
-        assertEquals(expectedMP.geteSign(), ct.getMedicalPrescription().geteSign());
-        assertEquals(expectedMP.getPrescCode(), ct.getMedicalPrescription().getPrescCode());
+        assertEquals(expectedMP.geteSign(), ct.getMedPrescription().geteSign());
+        assertEquals(expectedMP.getPrescCode(), ct.getMedPrescription().getPrescCode());
     }
 
     @Test
@@ -139,24 +137,5 @@ public class ConsultationTerminalTest {
         ct.sendePrescription();
         assertThrows(NotFinishedTreatmentException.class, () -> ct.initPrescriptionEdition());
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }

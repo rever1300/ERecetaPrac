@@ -4,6 +4,7 @@ import Exceptions.*;
 import Exceptions.dataE.HealthCardException;
 import Exceptions.dataE.ProductIDException;
 import Exceptions.dataE.eSignatureException;
+import data.DigitalSignature;
 import data.HealthCardID;
 import data.ProductID;
 import medicalconsultation.MedicalPrescription;
@@ -16,7 +17,7 @@ import java.util.List;
 
 public class HNSgetProdSpecificConnectException implements HealthNationalService {
 
-    private final List<ProductSpecification> productSpecificationsList = new ArrayList<>();
+    private final List<ProductSpecification> prodSpfList = new ArrayList<>();
     private MedicalPrescription MP;
 
     @Override
@@ -35,9 +36,9 @@ public class HNSgetProdSpecificConnectException implements HealthNationalService
         String desc2 = "Pastilles pel mal de panxa";
         BigDecimal price2 = new BigDecimal(4);
         ProductSpecification pS2 = new ProductSpecification(pid2, desc2, price2);
-        productSpecificationsList.add(pS);
-        productSpecificationsList.add(pS2);
-        return productSpecificationsList;
+        prodSpfList.add(pS);
+        prodSpfList.add(pS2);
+        return prodSpfList;
     }
 
     @Override
@@ -49,6 +50,7 @@ public class HNSgetProdSpecificConnectException implements HealthNationalService
     public MedicalPrescription sendePrescription(MedicalPrescription ePresc) throws ConnectException, NotValidePrescriptionException, eSignatureException, NotCompletedMedicalPrescription {
         MP = ePresc;
         MP.setPrescCode(38);
+        MP.seteSign(new DigitalSignature("Maria".getBytes()));
         return MP;
     }
 }

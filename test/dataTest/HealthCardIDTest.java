@@ -11,7 +11,6 @@ public class HealthCardIDTest implements DataInterficies {
 
     private HealthCardID hCard;
 
-
     @Override
     @BeforeEach
     public void initialize() throws HealthCardFormatException {
@@ -30,7 +29,6 @@ public class HealthCardIDTest implements DataInterficies {
         assertThrows(HealthCardFormatException.class, () -> new HealthCardID("BBBBBBBB3L156489561498964893"));
         assertThrows(HealthCardFormatException.class, () -> new HealthCardID("BBBBBBBBRL15648956149896489D"));
     }
-
 
     @Test
     public void testGetter() {

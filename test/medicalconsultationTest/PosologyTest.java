@@ -11,7 +11,6 @@ public class PosologyTest {
 
     private Posology pos;
 
-
     @BeforeEach
     public void initialize(){
         float dose = 2.5f;
@@ -38,7 +37,6 @@ public class PosologyTest {
         pos.setDose(5f);
         assertEquals(5f, pos.getDose());
     }
-
 
     @Test
     public void setterFreq(){
